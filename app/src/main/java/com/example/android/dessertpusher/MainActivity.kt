@@ -26,6 +26,7 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
@@ -78,6 +79,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
+
+        Timber.i("entered onCreate")
     }
 
     /**
@@ -145,5 +148,35 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             R.id.shareMenuButton -> onShare()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Timber.i("entered onRestart")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Timber.i("entered onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.i("entered onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.i("entered onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.i("entered onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.i("entered onDestroy")
     }
 }
