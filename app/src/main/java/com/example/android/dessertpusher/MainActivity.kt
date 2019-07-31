@@ -28,6 +28,10 @@ import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
 import timber.log.Timber
 
+const val KEY_REVENUE = "key_revenue"
+const val KEY_DESSERTS_SOLD = "key_desserts_sold"
+const val KEY_DESSERT_TIMER = "key_desserts_sold"
+
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     private var revenue = 0
@@ -67,6 +71,11 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (savedInstanceState!=null){
+            revenue = savedInstanceState.getInt(KEY_REVENUE)
+            dessertsSold= savedInstanceState.getInt(KEY_DESSERTS_SOLD)
+            dessertTimer.secondsCount = savedInstanceState.getInt(KEY_DESSERT_TIMER)
+        }
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -175,6 +184,14 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     override fun onStop() {
         super.onStop()
         Timber.i("entered onStop")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_REVENUE,revenue)
+        outState.putInt(KEY_DESSERTS_SOLD,dessertsSold)
+        outState.putInt(KEY_DESSERT_TIMER,dessertTimer.secondsCount)
+        Timber.i("running on save instance state")
     }
 
     override fun onDestroy() {
